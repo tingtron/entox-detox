@@ -10,6 +10,21 @@ Copyright (C) 2024 tingtron
 This product includes software developed by
 - Copyright 2004-2008 by Ken Pettit, Jerome Vernet, James Hurd and John Hogerhuis
 
+## Syntax
+
+`entox` converts plain text BASIC file to tokenized form
+```
+usage: entox [-d] [in.do [out.ba]]
+             -d  debug
+  in.do, out.ba  TEXT/BASIC files or stdin/stdout
+```
+`detox`  converts tokenized BASIC file to plain text form
+```
+usage: detox [-d] [in.ba [out.do]]
+             -d  debug
+  in.ba, out.do  BASIC/TEXT files or stdin/stdout
+```
+
 ## Overview
 
 Many Tandy Model 100 BASIC files found on the Internet are represented
@@ -29,10 +44,12 @@ The routines used in VirtualT, which are tightly coupled with UI,
 The structure of tokenized BASIC files is a series of lines, without any common header or ending.
 Each line has the following structure:
 
-2 bytes Next Line Address (low-endian integer)
-2 bytes Line Number (low-endian integer)
-List of tokens (high ASCII) and plain text (low ASCII)
-Zero Line Terminator
+| Size | Description |
+| --- | --- |
+| 2 bytes | Next Line Address (low-endian integer) |
+| 2 bytes | Line Number (low-endian integer) |
+| ...     | List of tokens (high ASCII) and plain text (low ASCII) |
+| 1 byte  | 0x00 Line Terminator |
 
 When loaded in memory, or for de-tokenization, after the end of the binary program,
 2 zero bytes are placed to indicate the end of program.
@@ -42,18 +59,6 @@ So all the lines will have a common offset of the beginning of the program in me
 For our purposes this common memory offset is subtracted, and each line address indicates the
 position from the beginning of the file.
 
-`entox` converts plain text BASIC file to tokenized form
-```
-usage: entox [-d] [in.do [out.ba]]
-             -d  debug
-  in.do, out.ba  TEXT/BASIC files or stdin/stdout
-```
-`detox`  converts tokenized BASIC file to plain text form
-```
-usage: detox [-d] [in.ba [out.do]]
-             -d  debug
-  in.ba, out.do  BASIC/TEXT files or stdin/stdout
-```
 ## References
 
 Here are a few other methods of tokenizing BASIC for Tandy Model 100.
