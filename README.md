@@ -1,4 +1,4 @@
-# Entox-Detox - Yet Another Model 100 Tokenizer
+# Entox-Detox - Yet Another Tandy Model 100 Tokenizer
 
 Command-line tools `entox` and `detox` are used to convert between plain TEXT
 and tokenized BASIC files for Tandy Model 100.
